@@ -14,7 +14,15 @@
     z-index: 2000;
     cursor: pointer;
     box-shadow: 0 1rem 2rem rgba($color-black, .1);
-
+    text-align: center;
+    @include respond(tab-port) {
+      top: 4rem;
+      right: 4rem;
+    }
+    @include respond(phone) {
+      top: 3rem;
+      right: 3rem;
+    }
   }
   &__background {
     height: 6rem;
@@ -26,7 +34,14 @@
     right: 6.5rem;
     position: fixed;
     transition: transform .8s cubic-bezier(0.85, 0, 0.15, 1);
-    // transform: scale(80);
+    @include respond(tab-port) {
+      top: 4.5rem;
+      right: 4.5rem;
+    }
+    @include respond(phone) {
+      top: 3.5rem;
+      right: 3.5rem;
+    }
   }
   &__nav {
     width: 100%;
@@ -76,6 +91,8 @@
       transform: translateX(1rem);;
     }
   }
+
+  // functionality
   &__checkbox:checked ~ &__background {
     transform: scale(80);
   }
@@ -84,4 +101,43 @@
     width: 100%;
   }
 
+  // icon
+  &__icon-menu {
+    position: relative;
+    margin-top: 3.5rem;
+    &,
+    &::after,
+    &::before {
+      width: 3rem;
+      height: 2px;
+      background-color: $color-grey-dark-1;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+    &::after,
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+    }
+    
+    &::before { top: -.8rem;}
+    &::after { top: .8rem;}
+  }
+
+  &__button:hover &__icon-menu {
+    &::before { top: -1rem }
+    &::after { top: 1rem }
+  }
+  &__checkbox:checked + &__button &__icon-menu {
+    background-color: transparent;
+  }
+  &__checkbox:checked + &__button &__icon-menu::before {
+   transform: rotate(135deg);
+   top: 0;
+  }
+  &__checkbox:checked + &__button &__icon-menu::after {
+    transform: rotate(-135deg);
+    top: 0;
+  }
 }
