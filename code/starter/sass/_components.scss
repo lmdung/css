@@ -10,6 +10,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  @media only screen and (max-width: $bp-smallest) {
+    order: 1;
+    flex: 0 0 100%;
+    background-color: var(--color-grey-light-2);
+  }
   &__input {
     font-size: inherit;
     font-family: inherit;
@@ -26,6 +31,9 @@
       outline: none;
       background-color: var(--color-grey-light-3);
       width: 100%;
+      @media only screen and (max-width: $bp-smallest) {
+        background-color: var(--color-grey-light-2);
+      }
     }
     &::-webkit-input-placeholder {
       font-weight: 100;
@@ -102,10 +110,20 @@
   font-size: 1.4rem;
   list-style: none;
   margin-top: 3.5rem;
+  @media only screen and (max-width: $bp-medium) {
+    margin-top: 0;
+    display: flex;
+  }
   &__item {
     position: relative;
     &:not(:last-child) {
       margin-bottom: .5rem;
+      @media only screen and (max-width: $bp-medium) {
+        margin: 0;
+      }
+    }
+    @media only screen and (max-width: $bp-medium) {
+      flex: 1;
     }
   }
   &__item::before {
@@ -141,12 +159,30 @@
 
     display: flex;
     align-items: center;
+    @media only screen and (max-width: $bp-medium) {
+      justify-content: center;
+      padding: 2rem;
+    }
+    @media only screen and (max-width: $bp-small) {
+      flex-direction: column;
+    }
+    @media only screen and (max-width: $bp-smallest) {
+      span {
+        font-size: 1.2rem;
+      }
+    }
   }
   &__icon {
     width: 1.75rem;
     height: 1.75rem;
     margin-right: 2rem;
     fill: currentColor; // color cua no or parent
+    @media only screen and (max-width: $bp-small) {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: 0;
+      margin-bottom: .5rem;
+    }
   }
 }
 
@@ -155,6 +191,9 @@
   color: var(--color-grey-light-4);
   text-align: center;
   padding: 2.5rem;
+  @media only screen and (max-width: $bp-medium) {
+    display: none;
+  }
 }
 
 ///////////// Main
@@ -179,6 +218,15 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     padding: 1.5rem 3rem;
+    @media only screen and (max-width: $bp-small) {
+      font-size: 1.8rem;
+      letter-spacing: .5px;
+      padding: 1.25rem 2rem;
+    }
+    @media only screen and (max-width: $bp-smallest) {
+      font-size: 1.5rem;
+      padding: .5rem 1rem;
+    }
   }
 
   &__stars {
@@ -192,11 +240,18 @@
     width: 1.75rem;
     height: 1.75rem;
     fill: var(--color-primary);
+    @media only screen and (max-width: $bp-small) {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
   }
 
   &__location {
     font-size: 1.2rem;
     display: flex;
+    @media only screen and (max-width: $bp-small) {
+      font-style: 1rem;
+    }
   }
   &__icon-location {
     margin-right: .5rem;
@@ -212,17 +267,27 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    @media only screen and (max-width: $bp-small) {
+      margin-left: 2rem;
+      padding: 0 1.5rem;
+    }
   }
 
   &__rating-average {
     font-size: 2.25rem;
     font-weight: 300;
     margin-bottom: -3px;
+    @media only screen and (max-width: $bp-small) {
+      font-size: 1.8rem;
+    }
   }
 
   &__rating-count {
     font-size: .8rem;
     text-transform: uppercase;
+    @media only screen and (max-width: $bp-small) {
+      font-size: .5rem;
+    }
   }
 }
 
@@ -235,8 +300,15 @@
   border-bottom: 1px solid currentColor;
   cursor: pointer;
   transition: all .2s;
+  span {
+    margin-left: 3px;
+    transition: margin-left .2s;
+  }
   &:hover {
-    color: var(--color-grey-dark-1)
+    color: var(--color-grey-dark-1);
+    span {
+      margin-left: 8px;
+    }
   }
   &:focus {
     outline: none;
@@ -261,20 +333,6 @@
 
 // detail
 
-.detail {
-  display: flex;
-  background-color: var(--color-grey-light-1);
-  padding: 4.5rem;
-  border-bottom: var(--line);
-}
-
-.description {
-  font-size: 1.4rem;
-  flex: 0 0 60%;
-  margin-right: 4.5rem;
-  background-color: #fff;
-  padding: 3rem;
-  box-shadow: var(--box-shadow-light);
   .paragraph {
     &:not(:last-child) {
       margin-bottom: 3rem;
@@ -289,6 +347,10 @@
     padding: 3rem 0;
     border-top: var(--line);
     border-bottom: var(--line);
+    @media only screen and (max-width: $bp-medium) {
+      margin: 2rem 0;
+      padding: 2rem 0;
+    }
     &__item {
       flex: 0 0 50%;
     }
@@ -299,15 +361,17 @@
       display: inline-block;
       margin-right: .7rem;
       // older browser
-      // background-image: url(../img/chevron-thin-right.svg);
-      // background-size: cover;
+      background-image: url(../img/chevron-thin-right.svg);
+      background-size: cover;
 
       // new browsers
-      background-color:var(--color-primary);
-      -webkit-mask-image: url(../img/chevron-thin-right.svg);
-      -webkit-mask-size: cover;
-      mask-image: url(../img/chevron-thin-right.svg);
-      mask-size: cover;
+      @supports(-webkit-mask-image: url() ) or (mask-image: url()) {
+        background-color:var(--color-primary);
+        -webkit-mask-image: url(../img/chevron-thin-right.svg);
+        -webkit-mask-size: cover;
+        mask-image: url(../img/chevron-thin-right.svg);
+        mask-size: cover;
+      }
     }
   }
 
@@ -319,11 +383,9 @@
     &__count {
       margin-right: auto;
     }
-
     &__friends {
-      
+      display: flex;
     }
-
     &__photo {
       box-sizing: content-box;
       width: 4rem;
@@ -335,9 +397,133 @@
       }
     }
   }
+
+// review
+
+.review {
+  background-color: #fff;
+  box-shadow: var(--box-shadow-light);
+  padding: 3rem;
+  margin-bottom: 3.5rem;
+  position: relative;
+  overflow: hidden;
+  @media only screen and (max-width: $bp-medium) {
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  &__text {
+    margin-bottom: 2rem;
+    z-index: 10;
+    position: relative;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+  }
+
+  &__photo {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    margin-right: 1rem;
+  }
+
+  &__user-box {
+    margin-right: auto;
+  }
+
+  &__user-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: .4rem;
+  }
+
+  &__user-date {
+    font-size: 1rem;
+    color: var(--color-grey-dark-3);
+  }
+
+  &__rating {
+    font-style: 2.25rem;
+    font-weight: 300;
+    color: var(--color-primary)
+  }
+
+  &::before {
+    content: "\201C";
+    font-size: 20rem;
+    position: absolute;
+    top: -2.75rem;
+    left: -1rem;
+    color: var(--color-grey-light-2);
+    line-height: 1;
+    z-index: 1;
+    font-family: sans-serif;
+  }
 }
 
-.users-review {
-  flex: 1;
-  background-color: paleturquoise;
+// cta 
+.cta {
+  padding: 3.5rem 0;
+  text-align: center;
+  @media only screen and (max-width: $bp-medium) {
+    padding: 2rem 0;
+  }
+  &__book-now {
+    font-style: 2rem;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    text-transform: uppercase;
+    @media only screen and (max-width: $bp-medium) {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+
+.btn {
+  font-style: 1.5rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 100px;
+  background-image: linear-gradient(to right bottom, var(--color-primary-light), var(--color-primary-dark));
+  position: relative;
+  color: #fff;
+  overflow: hidden;
+  cursor: pointer;
+  & > * {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: all 0.2s;
+  }
+  &-visible {
+    padding: 2rem 7.5rem;
+  }
+  &-invisible {
+    padding: 2rem 0rem;
+    position: absolute;
+    top: -100%;
+    left: 0;
+  }
+
+  &:hover {
+    background-image: linear-gradient(to left bottom, var(--color-primary-light), var(--color-primary-dark));
+  }
+
+  &:hover &-visible {
+    transform: translateY(100%)
+  }
+
+  &:hover &-invisible {
+    top: 0;
+  }
+
+  &:focus {
+    outline: none;
+    animation: pulsate 1s infinite;
+  }
 }
